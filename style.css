@@ -1,0 +1,194 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+/*MENU*/
+.navbar {
+    background-color: #dddddd;
+}
+.menubtn {
+    position: absolute;
+    font-size: 200%;
+    color:black;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+
+    padding: 10px;
+    padding-top: 12px;
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.menubtn:visited {
+    text-decoration: none;
+}
+
+.active {
+    border-radius: 5px;
+    background-color: #009FD6;
+}
+
+.logomenu {
+    position: relative;
+    height: 55px;
+    width:auto;
+    left: 50%;
+    transform: translate(-50%,0);
+    padding-left: 3px;
+    padding-right: 3px;
+}
+/*MENU END*/
+.content {
+    position: relative;
+    top: 60px;
+}
+/*HOME PAGE*/
+.frontHeader {
+    text-align: center;
+    font-size: 300%;
+    font-weight: 900;
+}
+.frontImage {
+
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+
+}
+.imgContainer {
+    text-align: center;
+}
+/*HOME PAGE END*/
+
+/*PLAYERS PAGE*/
+.playerTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.tablebtn {
+    padding: 0;
+    float: right;
+}
+/*PLAYERS PAGE END*/
+
+/*LOGIN PAGE*/
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="username"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.indicator{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+
+}
+.indicator span{
+    width: 100%;
+    height: 10px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+}
+.weak-pass{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: none;
+    text-align: center;
+}
+/*LOGIN PAGE END*/
+
+/*EDIT DATA*/
+.form-editdata {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin:auto;
+}
+.form-profile {
+    width: 80%;
+    margin:auto;
+}
+
+.red {
+    background-color: #CA260A;
+    border-color: #CA260A;
+}
+.red:hover {
+    background-color: #FD140D;
+    border-color: #FD140D;
+}
+
+.buttons {
+
+    margin: auto;
+}
+.signupbtn {
+    background-color: #0d6efd;
+    margin-bottom: 5px;
+}
+/*EDIT DATA END*/
+
+/*POPUP*/
+
+#bg-popup {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.content-popup{
+    width: 90%;
+    height: 90%;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+#close-popup {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 30px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+/*END POPUP*/
