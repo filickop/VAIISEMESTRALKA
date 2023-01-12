@@ -1,0 +1,38 @@
+.gamecard {
+    max-width: 200px;
+    max-height: 300px;
+    margin: 20px;
+}
+
+.game-images {
+    max-width: 200px;
+    width: 200px;
+    text-align: center;
+}
+
+.gamecard-background {
+    border-radius: 20px;
+    width: 100%
+}
+
+.gamecard-logo {
+    position: relative;
+    max-width: 100px;
+    height: 50px;
+    bottom: 70px;
+    z-index: 1;
+}
+
+.gamecard-text {
+    font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,segoe ui,helvetica neue,helvetica,Ubuntu,roboto,noto,arial,sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    bottom: 10px;
+}
+.gamecard:hover {
+    color: #0a53be;
+}
+
+.gamepage-text {
+    color: #2b3035;
+}

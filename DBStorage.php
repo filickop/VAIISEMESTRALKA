@@ -76,6 +76,15 @@ class DBStorage
         $arr["username"] = "";
         return $arr;
     }
+
+    public function readGames() {
+        $sql = "SELECT * FROM game";
+        $res = $this->conn->query($sql);
+        $res->fetchAll();
+        $res->execute();
+        return $res;
+    }
+
     public function getTable() {
         $sql = "SELECT * FROM users";
         $res = $this->conn->query($sql);
@@ -83,5 +92,7 @@ class DBStorage
         $res->execute();
         return $res;
     }
+
+
 
 }
