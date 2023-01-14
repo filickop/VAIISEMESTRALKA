@@ -1,7 +1,13 @@
 <?php
+
+session_start();
 require 'DBStorage.php';
 
 $storage = new DBStorage();
+
+//echo $_SESSION["game"];
+$game = $storage->readGame($_SESSION["game"]);
+
 ?>
 
 <!doctype html>
@@ -20,25 +26,31 @@ $storage = new DBStorage();
 </head>
 <body class="p-3 m-0 border-0">
 
-<?php
-include 'navmenu.php';
-?>
+    <?php
+        include 'navmenu.php';
+    ?>
 
-<div class="container">
+    <div class="container">
 
-    <div class="row">
-        <div class="col game-images">
-            <img class="gamecard-background" src="/images/cs_go-2.webp" >
-            <img class="gamecard-logo" src="/images/cs_go.svg">
+        <div class="row">
+            <div class="col game-images">
+                <img class="gamecard-background" src="<?php echo $game["background"]?>" >
+                <img class="gamecard-logo" src="<?php echo $game["logo"]?>">
+            </div>
+            <div class="col">
+                <h1><?php echo $game["name"]?></h1>
+                <p class="gamepage-text"><?php echo $game["text"]?></p>
+            </div>
+
         </div>
-        <div class="col">
-            <h1>CS:GO</h1>
-            <p class="gamepage-text">Counter-Strike: Global Offensive is a multiplayer first-person shooter developed by Valve and Hidden Path Entertainment. It is the fourth game in the Counter-Strike series.</p>
+
+        <div class="row">
+            <?php
+                include 'players.php';
+            ?>
         </div>
 
     </div>
-
-</div>
 
 
 </body>

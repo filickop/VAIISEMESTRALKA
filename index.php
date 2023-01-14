@@ -1,7 +1,15 @@
 <?php
+    session_start();
     require 'DBStorage.php';
 
     $storage = new DBStorage();
+
+    if(isset($_GET["game"])) {
+
+        $_SESSION["game"] = $_GET["game"];
+        header("Location: /gamePage.php");
+        exit();
+    }
 ?>
 
 <!doctype html>
@@ -30,14 +38,15 @@
                 foreach ($storage->readGames() as $game) {
             ?>
                 <div class="text-center gamecard col">
-                    <div>
-                        <img class="gamecard-background" src="<?php echo $game["background"]?>" >
-                        <img class="gamecard-logo" src="<?php echo $game["logo"]?>">
-                    </div>
-                    <div class="gamecard-text">
-                        <span><?php echo $game["name"]?></span>
-                    </div>
-
+                    <a href="?game=<?php echo $game["ID_game"]?>">
+                        <div>
+                            <img class="gamecard-background" src="<?php echo $game["background"]?>" >
+                            <img class="gamecard-logo" src="<?php echo $game["logo"]?>">
+                        </div>
+                        <div class="gamecard-text">
+                            <span><?php echo $game["name"]?></span>
+                        </div>
+                    </a>
                 </div>
             <?php
                 }

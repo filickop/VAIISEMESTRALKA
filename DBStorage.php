@@ -78,19 +78,67 @@ class DBStorage
     }
 
     public function readGames() {
-        $sql = "SELECT * FROM game";
-        $res = $this->conn->query($sql);
-        $res->fetchAll();
+        $res = $this->conn->prepare("SELECT * FROM game");
+        $res->execute();
+        return $res->fetchAll();
+    }
+
+    public function readGame($ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM game where ID_game=? ");
+        $res->execute([$ID_game]);
+        return $res->fetch();
+    }
+
+    public function readPlayers($ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM user join mouse on(user.login = mouse.id_user) where mouse.ID_game=?");
+        $res->bindParam(1, $ID_game);
+        $res->execute();
+
+        return $res;
+    }
+
+    public function readPlayer($login) {
+        $res = $this->conn->prepare("SELECT * FROM user where login=? ");
+        $res->execute([$login]);
+        return $res->fetch();
+    }
+    public function readGamesByPlayer($login) {
+        $res = $this->conn->prepare("SELECT * FROM game where ID_game in (
+                                           select ID_game from mouse where id_user=?) ");
+        $res->bindParam(1, $login);
         $res->execute();
         return $res;
     }
 
-    public function getTable() {
-        $sql = "SELECT * FROM users";
-        $res = $this->conn->query($sql);
-        $res->fetchAll();
+    public function readMouse($login, $ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM mouse where id_user=? and ID_game=? ");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
         $res->execute();
-        return $res;
+        return $res->fetch();
+    }
+
+    public function readCrosshair($login, $ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM crosshair where id_user=? and ID_game=? ");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+        return $res->fetch();
+    }
+
+    public function readViewmodel($login, $ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM viewmodel where id_user=? and ID_game=? ");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+        return $res->fetch();
+    }
+    public function readVideo($login, $ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM video where id_user=? and ID_game=? ");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+        return $res->fetch();
     }
 
 

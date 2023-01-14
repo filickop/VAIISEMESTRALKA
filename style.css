@@ -23,16 +23,116 @@
     z-index: 1;
 }
 
+a:visited {
+    text-decoration: none;
+    color: black
+}
+
+a:link {
+    text-decoration: none;
+    color: black
+}
 .gamecard-text {
     font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,segoe ui,helvetica neue,helvetica,Ubuntu,roboto,noto,arial,sans-serif;
     font-weight: bold;
     font-size: 20px;
     bottom: 10px;
 }
+
 .gamecard:hover {
     color: #0a53be;
 }
 
 .gamepage-text {
     color: #2b3035;
+}
+
+.navbar-logo {
+    width: 100%;
+}
+.navbar-brand {
+    max-width: 80%;
+}
+.playercard {
+    max-width: 200px;
+    max-height: 300px;
+    width: 200px;
+    height: 300px;
+    background: lightgrey;
+    border: 2px solid grey;
+    border-radius: 20px;
+    padding:0;
+    cursor: pointer;
+    margin: 0 20px;
+}
+.playercard-gameimg {
+    position: relative;
+    bottom: 50px;
+    width: 30px;
+
+    background: orange;
+    border-radius: 3px;
+}
+.playercard-background-back {
+
+    position: relative;
+    top: 5px;
+    margin: 0 auto;
+    width: fit-content;
+}
+.playercard-background {
+    width: fit-content;
+    border-radius: 20px;
+
+}
+
+.playercard-name {
+    padding-top: 10px;
+}
+.playerTable-th {
+    color: grey;
+    font-weight: lighter;
+}
+.playerTable-td {
+    color: black;
+    font-weight: bolder;
+}
+.playercontainer {
+    border-radius: 20px;
+    margin-top: 50px;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
+    padding-top: 20px;
+}
+.playerData-image {
+    max-width: 200px;
+    aspect-ratio: 200/200;
+    margin: 0 auto;
+}
+
+.playerTable-tr {
+    border-bottom: grey 1px solid;
+}
+.playerData {
+    margin: 0 auto;
+}
+.configcard {
+    border-radius: 20px;
+    margin-top: 50px;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
+    padding-top: 20px;
+}
+
+.configTable-th {
+    color: grey;
+
+}
+.configTable-td {
+    color: black;
+    font-weight: bolder;
+}
+
+.configSettings {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
