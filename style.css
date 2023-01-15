@@ -1,3 +1,6 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
 .gamecard {
     max-width: 200px;
     max-height: 300px;
@@ -120,6 +123,7 @@ a:link {
     margin-top: 50px;
     box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
     padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 .configTable-th {
@@ -135,4 +139,76 @@ a:link {
     width: 80%;
     margin: 0 auto;
     margin-bottom: 10px;
+}
+
+.form-signin {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+.form-editdata {
+    font-family: 'Roboto', sans-serif;
+}
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="username"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.indicator{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+
+}
+.indicator span{
+    width: 100%;
+    height: 10px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+}
+.weak-pass{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: none;
+    text-align: center;
+}
+
+.form-profile {
+    width: 80%;
+    margin:auto;
+}
+
+.red {
+    background-color: #CA260A;
+    border-color: #CA260A;
+}
+.red:hover {
+    background-color: #FD140D;
+    border-color: #FD140D;
+}
+
+.buttons {
+
+    margin: auto;
+}
+.signupbtn {
+    background-color: #0d6efd;
+    margin-bottom: 5px;
 }

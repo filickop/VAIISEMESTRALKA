@@ -7,7 +7,7 @@ $mouse = $storage->readMouse($_SESSION["player"], $_GET["q"]);
 
 $crosshair = $storage->readCrosshair($_SESSION["player"], $_GET["q"]);
 
-$viewmodel = $storage->readViewmodel($_SESSION["player"], $_GET["q"]);
+$keyBinds = $storage->readKeyBinds($_SESSION["player"], $_GET["q"]);
 
 $video = $storage->readVideo($_SESSION["player"], $_GET["q"]);
 
@@ -34,16 +34,21 @@ if($crosshair == null) {
     $crosshair["thickness"] = "Unknown";
     $crosshair["sniper_width"] = "Unknown";
 }
-
-if($viewmodel == null) {
-    $viewmodel["fov"] = "Unknown";
-    $viewmodel["offsetx"] = "Unknown";
-    $viewmodel["offsety"] = "Unknown";
-    $viewmodel["offsetz"] = "Unknown";
-    $viewmodel["righthand"] = "Unknown";
-    $viewmodel["recoil"] = "Unknown";
-
+if($keyBinds == null) {
+    $keyBinds["slot1"] = "Unknown";
+    $keyBinds["slot2"] = "Unknown";
+    $keyBinds["slot3"] = "Unknown";
+    $keyBinds["slot4"] = "Unknown";
+    $keyBinds["slot5"] = "Unknown";
+    $keyBinds["slot6"] = "Unknown";
+    $keyBinds["slot7"] = "Unknown";
+    $keyBinds["slot8"] = "Unknown";
+    $keyBinds["crouch"] = "Unknown";
+    $keyBinds["walk_sprint"] = "Unknown";
+    $keyBinds["jump"] = "Unknown";
+    $keyBinds["use_object"] = "Unknown";
 }
+
 
 if($video == null) {
     $video["resolution"] = "Unknown";
@@ -176,36 +181,59 @@ echo "  <div class=\"container row\">
 <div class=\"container row\">
     <div class=\"configcard\">
         <div class=\"row\">
-            <h3>Viewmodel</h3>
+            <h3>Keybinds</h3>
         </div>
         <div class=\"row\">
             <table class=\"configSettings\">
                 <tbody>
                 <tr>
-                    <th class=\"configTable-th\">FOV</th>
-                    <td class=\"configTable-td\">". $viewmodel["fov"] ."</td>
+                    <th class=\"configTable-th\">Walk</th>
+                    <td class=\"configTable-td\">". $keyBinds["walk_sprint"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Offset X</th>
-                    <td class=\"configTable-td\"> ". $viewmodel["offsetx"] ."</td>
+                    <th class=\"configTable-th\">Crouch</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["crouch"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Offset Y</th>
-                    <td class=\"configTable-td\">". $viewmodel["offsety"] ."</td>
+                    <th class=\"configTable-th\">Jump</th>
+                    <td class=\"configTable-td\">". $keyBinds["jump"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Offset Z</th>
-                    <td class=\"configTable-td\"> ". $viewmodel["offsetz"] ."</td>
+                    <th class=\"configTable-th\">Use Object</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["use_object"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Recoil</th>
-                    <td class=\"configTable-td\">". $viewmodel["recoil"] ." </td>
+                    <th class=\"configTable-th\">Primary Weapon</th>
+                    <td class=\"configTable-td\">". $keyBinds["slot1"] ." </td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Righthand</th>
-                    <td class=\"configTable-td\"> ". $viewmodel["righthand"] ."</td>
+                    <th class=\"configTable-th\">Secondary Weapon</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot2"] ."</td>
                 </tr>
-
+                <tr>
+                    <th class=\"configTable-th\">Meele Weapon</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot3"] ."</td>
+                </tr>
+                <tr>
+                    <th class=\"configTable-th\">Spike</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot4"] ."</td>
+                </tr>
+                <tr>
+                    <th class=\"configTable-th\">Ability 1</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot5"] ."</td>
+                </tr>
+                <tr>
+                    <th class=\"configTable-th\">Ability 2</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot6"] ."</td>
+                </tr>
+                <tr>
+                    <th class=\"configTable-th\">Ability 3</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot7"] ."</td>
+                </tr>
+                <tr>
+                    <th class=\"configTable-th\">Ability Ultimate</th>
+                    <td class=\"configTable-td\"> ". $keyBinds["slot8"] ."</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -229,47 +257,35 @@ echo "  <div class=\"container row\">
                     <td class=\"configTable-td\"> ". $video["aspect_ratio"] . "</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Scaling Mode</th>
+                    <th class=\"configTable-th\">Aspect Ratio Method</th>
                     <td class=\"configTable-td\"> ". $video["scalling_mode"] ."</td>
-                </tr>
-                <tr>
-                    <th class=\"configTable-th\">Brightness</th>
-                    <td class=\"configTable-td\"> ". $video["brightness"] ."</td>
                 </tr>
                 <tr>
                     <th class=\"configTable-th\">Display Mode</th>
                     <td class=\"configTable-td\">". $video["display_mode"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Global Shadow Quality</th>
-                    <td class=\"configTable-td\"> ". $video["global_shadow_qua"] ."</td>
+                    <th class=\"configTable-th\">Multithreaded Rendering</th>
+                    <td class=\"configTable-td\"> ". $video["multicore_ren"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Model / Texture Detail</th>
+                    <th class=\"configTable-th\">Material Quality</th>
                     <td class=\"configTable-td\"> ". $video["model_detail"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Texture Streaming</th>
+                    <th class=\"configTable-th\">Texture Quality</th>
                     <td class=\"configTable-td\">". $video["texture_streaming"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Effect Detail</th>
+                    <th class=\"configTable-th\">Detail Detail</th>
                     <td class=\"configTable-td\">". $video["effect_detail"] ."</td>
                 </tr><tr>
-                    <th class=\"configTable-th\">Shader Detail</th>
+                    <th class=\"configTable-th\">UI Quaility</th>
                     <td class=\"configTable-td\"> ". $video["shader_detail"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Boost Player Contrast</th>
+                    <th class=\"configTable-th\">Vignette</th>
                     <td class=\"configTable-td\">". $video["boost_player_c"] ."</td>
-                </tr>
-                <tr>
-                    <th class=\"configTable-th\">Multicore Rendering</th>
-                    <td class=\"configTable-td\">". $video["multicore_ren"] ."</td>
-                </tr>
-                <tr>
-                    <th class=\"configTable-th\">Multisampling</th>
-                    <td class=\"configTable-td\">". $video["multisampling"] ."</td>
                 </tr>
                 <tr>
                     <th class=\"configTable-th\">FXAA Anti-Aliasing</th>
@@ -283,16 +299,6 @@ echo "  <div class=\"container row\">
                     <th class=\"configTable-th\">Motion Blur</th>
                     <td class=\"configTable-td\">". $video["motion_blur"] ."</td>
                 </tr>
-                <tr>
-                    <th class=\"configTable-th\">Triple-Monitor Mode</th>
-                    <td class=\"configTable-td\">". $video["triple_monitor"] ."</td>
-                </tr>
-                <tr>
-                    <th class=\"configTable-th\">Use Uber Shaders</th>
-                    <td class=\"configTable-td\">". $video["user_shaders"] ."</td>
-                </tr>
-
-
                 </tbody>
             </table>
         </div>

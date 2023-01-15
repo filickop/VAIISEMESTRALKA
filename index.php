@@ -1,7 +1,9 @@
 <?php
     session_start();
     require 'DBStorage.php';
+    require 'Auth.php';
 
+    $auth = new Auth();
     $storage = new DBStorage();
 
     if(isset($_GET["game"])) {
@@ -10,6 +12,10 @@
         header("Location: /gamePage.php");
         exit();
     }
+    if(isset($_GET['logout']) && $_GET['logout'] == '1') {
+        Auth::logout();
+    }
+
 ?>
 
 <!doctype html>

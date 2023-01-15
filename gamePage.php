@@ -2,6 +2,9 @@
 
 session_start();
 require 'DBStorage.php';
+require 'Auth.php';
+
+$auth = new Auth();
 
 $storage = new DBStorage();
 

@@ -18,20 +18,43 @@ class DBStorage
             echo "Connection failed: " . $e->getMessage();
         }
     }
-    public function login( $username, $password) {
-        $sql = "SELECT * FROM users where username = '".$username."'";
-
-        $res = $this->conn->query($sql);
-        $res->fetchAll();
+    public function login( $login, $password) {
+        $res = $this->conn->prepare("SELECT * FROM user where login=?");
+        $res->bindParam(1, $login);
         $res->execute();
-        foreach($res as $row) {
-            if(isset($row) && $row["password"] == $password) {
+        $acc = $res->fetch();
+            if($acc != null && $acc["password"] == $password) {
                 return true;
             }
-
-        }
         return false;
     }
+    public function createUser($login, $name, $surname, $password)
+    {
+        if ($this->findUser($login)["login"] == $login) {
+            return false;
+        } else {
+            $res = $this->conn->prepare("INSERT INTO user (login, name, surname, password) VALUES(?,?,?,?)");
+            $res->bindParam(1, $login);
+            $res->bindParam(2, $name);
+            $res->bindParam(3, $surname);
+            $res->bindParam(4, $password);
+            $res->execute();
+            return true;
+        }
+    }
+
+    public function findUser($login) {
+        $res = $this->conn->prepare("SELECT * FROM user where login=? ");
+        $res->bindParam(1, $login);
+        $res->execute();
+        $acc = $res->fetch();
+        if($acc == null) {
+            $acc["login"] = "";
+        }
+        return $acc;
+    }
+
+
     public function updateUser($username, $firstName,  $lastName, $team, $cpu, $gpu, $ram, $monitor, $mouse, $keyboard, $headset, $mousepad, $dpi, $sensitivity, $crosshair, $viewmodel) {
 
         if(empty($dpi)) {
@@ -45,36 +68,32 @@ class DBStorage
         $res = $this->conn->prepare($sql);
         $res->execute();
     }
-    public function deleteUser($username) {
-        $sql = "DELETE FROM users WHERE username = '".$username."'";
-        $res = $this->conn->prepare($sql);
+    public function deleteUser($login) {
+        $res = $this->conn->prepare("DELETE FROM mouse WHERE ID_user=?");
+        $res->bindParam(1, $login);
         $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM crosshair WHERE ID_user=?");
+        $res->bindParam(1, $login);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM key_bindings WHERE ID_user=?");
+        $res->bindParam(1, $login);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM video WHERE ID_user=?");
+        $res->bindParam(1, $login);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM viewmodel WHERE ID_user=?");
+        $res->bindParam(1, $login);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM user WHERE login=?");
+        $res->bindParam(1, $login);
+        $res->execute();
+
         Auth::logout();
-    }
-    public function createUser($username, $firstName, $lastName, $password) {
-        if($this->readTable($username)['username'] == $username) {
-            return false;
-        } else {
-            $sql = "INSERT INTO users (username, firstName, lastName, password) VALUES(?,?,?,?)";
-            $res = $this->conn->prepare($sql);
-            $res->execute([$username, $firstName, $lastName, $password]);
-            return true;
-        }
-
-    }
-    public function readTable($username) {
-        $sql = "SELECT * FROM users WHERE username = '".$username."'";
-        $res = $this->conn->query($sql);
-        $res->fetchAll();
-        $res->execute();
-        foreach($res as $row) {
-            if(isset($row)) {
-                return $row;
-            }
-
-        }
-        $arr["username"] = "";
-        return $arr;
     }
 
     public function readGames() {
@@ -85,7 +104,8 @@ class DBStorage
 
     public function readGame($ID_game) {
         $res = $this->conn->prepare("SELECT * FROM game where ID_game=? ");
-        $res->execute([$ID_game]);
+        $res->bindParam(1, $ID_game);
+        $res->execute();
         return $res->fetch();
     }
 
@@ -99,7 +119,8 @@ class DBStorage
 
     public function readPlayer($login) {
         $res = $this->conn->prepare("SELECT * FROM user where login=? ");
-        $res->execute([$login]);
+        $res->bindParam(1, $login);
+        $res->execute();
         return $res->fetch();
     }
     public function readGamesByPlayer($login) {
@@ -116,6 +137,7 @@ class DBStorage
         $res->bindParam(2, $ID_game);
         $res->execute();
         return $res->fetch();
+
     }
 
     public function readCrosshair($login, $ID_game) {
@@ -135,6 +157,14 @@ class DBStorage
     }
     public function readVideo($login, $ID_game) {
         $res = $this->conn->prepare("SELECT * FROM video where id_user=? and ID_game=? ");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+        return $res->fetch();
+    }
+
+    public function readKeyBinds($login, $ID_game) {
+        $res = $this->conn->prepare("SELECT * FROM key_bindings where id_user=? and ID_game=? ");
         $res->bindParam(1, $login);
         $res->bindParam(2, $ID_game);
         $res->execute();
