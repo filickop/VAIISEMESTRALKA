@@ -92,6 +92,33 @@ class DBStorage
 
         Auth::logout();
     }
+    public function deleteConfig($login, $ID_game) {
+        $res = $this->conn->prepare("DELETE FROM mouse WHERE ID_user=? and ID_game=?");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM crosshair WHERE ID_user=? and ID_game=?");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM key_bindings WHERE ID_user=? and ID_game=?");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM video WHERE ID_user=? and ID_game=?");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+
+        $res = $this->conn->prepare("DELETE FROM viewmodel WHERE ID_user=? and ID_game=?");
+        $res->bindParam(1, $login);
+        $res->bindParam(2, $ID_game);
+        $res->execute();
+    }
+
 
     public function readGames() {
         $res = $this->conn->prepare("SELECT * FROM game");
@@ -269,13 +296,13 @@ class DBStorage
     }
     public function update_createVideo($login, $game, $resolution, $aspect_ratio, $scalling_mode, $brightness, $display_mode, $global_shadow_qua,
                                         $model_detail, $texture_streaming, $effect_detail, $shader_detail, $boost_player_c, $multicore_ren,
-                                        $multisampling, $fxaa, $texture_filtering, $v_sync, $motion_blur, $triple_monitor, $user_shaders) {
+                                        $multisampling, $fxaa, $texture_filtering, $v_sync, $motion_blur, $triple_monitor) {
 
         if($this->readVideo($login, $game) == null) {
             $res = $this->conn->prepare("INSERT INTO video SET resolution=?, aspect_ratio=?, scalling_mode=?, brightness=?, display_mode=?,
                                                                         global_shadow_qua=?, model_detail=?, texture_streaming=?, effect_detail=?,  
                                                                         shader_detail=?, boost_player_c=?, multicore_ren=?, multisampling=?, fxaa=?,
-                                                                        texture_filtering=?, v_sync=?, motion_blur=?, triple_monitor=?, user_shaders,  
+                                                                        texture_filtering=?, v_sync=?, motion_blur=?, triple_monitor=?,  
                                                                         id_user=?, ID_game=?");
 
             $res->bindParam(1, $resolution);
@@ -299,16 +326,15 @@ class DBStorage
             $res->bindParam(16, $v_sync);
             $res->bindParam(17, $motion_blur);
             $res->bindParam(18, $triple_monitor);
-            $res->bindParam(19, $user_shaders);
 
-            $res->bindParam(20, $login);
-            $res->bindParam(21, $game);
+            $res->bindParam(19, $login);
+            $res->bindParam(20, $game);
             $res->execute();
         } else {
             $res = $this->conn->prepare("UPDATE video SET resolution=?, aspect_ratio=?, scalling_mode=?, brightness=?, display_mode=?,
                                                                 global_shadow_qua=?, model_detail=?, texture_streaming=?, effect_detail=?,  
                                                                 shader_detail=?, boost_player_c=?, multicore_ren=?, multisampling=?, fxaa=?,
-                                                                texture_filtering=?, v_sync=?, motion_blur=?, triple_monitor=?, user_shaders
+                                                                texture_filtering=?, v_sync=?, motion_blur=?, triple_monitor=?
                                                                 where ID_user=? and ID_game=?");
 
             $res->bindParam(1, $resolution);
@@ -332,10 +358,9 @@ class DBStorage
             $res->bindParam(16, $v_sync);
             $res->bindParam(17, $motion_blur);
             $res->bindParam(18, $triple_monitor);
-            $res->bindParam(19, $user_shaders);
 
-            $res->bindParam(20, $login);
-            $res->bindParam(21, $game);
+            $res->bindParam(19, $login);
+            $res->bindParam(20, $game);
             $res->execute();
         }
 
@@ -344,7 +369,7 @@ class DBStorage
     public function update_createkeyBinding($login, $game, $slot1, $slot2, $slot3, $slot4, $slot5, $slot6, $slot7, $slot8, $crouch, $jump,
                                             $walk_sprint, $use_object) {
 
-        if($this->readViewmodel($login, $game) == null) {
+        if($this->readKeyBinds($login, $game) == null) {
             $res = $this->conn->prepare("INSERT INTO key_bindings SET slot1=?, slot2=?, slot3=?, slot4=?, slot5=?, slot6=?, slot7=?, slot8=?, 
                                                                             crouch=?, jump=?, walk_sprint=?, use_object=?, id_user=?, ID_game=?");
 

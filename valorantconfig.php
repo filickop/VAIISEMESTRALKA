@@ -277,7 +277,7 @@ echo "  <div class=\"container row\">
                     <td class=\"configTable-td\">". $video["texture_streaming"] ."</td>
                 </tr>
                 <tr>
-                    <th class=\"configTable-th\">Detail Detail</th>
+                    <th class=\"configTable-th\">Detail Quality</th>
                     <td class=\"configTable-td\">". $video["effect_detail"] ."</td>
                 </tr><tr>
                     <th class=\"configTable-th\">UI Quaility</th>

@@ -54,8 +54,65 @@ if(isset($_POST["update_csgo"])) {
                                 $_POST["green"], $_POST["blue"], $_POST["dot"], $_POST["gap"], $_POST["size"],
                                 $_POST["style"], $_POST["thickness"], $_POST["sniper_width"]);
 
+    $storage->update_createViewmodel(Auth::getUser(), 1, $_POST["fov"],  $_POST["offsetx"], $_POST["offsety"],
+                                $_POST["offsetz"], $_POST["righthand"], $_POST["recoil"]);
+
+    $storage->update_createVideo(Auth::getUser(), 1, $_POST["resolution"],  $_POST["aspect_ratio"], $_POST["scalling_mode"],
+                                $_POST["brightness"], $_POST["display_mode"], $_POST["global_shadow_qua"], $_POST["model_detail"],
+                                $_POST["texture_streaming"], $_POST["effect_detail"], $_POST["shader_detail"], $_POST["boost_player_c"],
+                                $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["v_sync"], $_POST["motion_blur"],
+                                $_POST["triple_monitor"], $_POST["user_shaders"]);
+
 
 }
+if(isset($_POST["update_valorant"])) {
+    $storage->update_createMouse(Auth::getUser(), 2, $_POST["DPI"],  $_POST["sensitivity"], $_POST["zoom_sens"],
+        $_POST["hz"], $_POST["windows_sens"], $_POST["raw_input"], $_POST["mouse_acc"]);
+
+    $storage->update_createCrosshair(Auth::getUser(), 2, $_POST["drawoutline"],  $_POST["alpha"], $_POST["red"],
+        $_POST["green"], $_POST["blue"], $_POST["dot"], $_POST["gap"], $_POST["size"],
+        $_POST["style"], $_POST["thickness"], $_POST["sniper_width"]);
+
+    $storage->update_createkeyBinding(Auth::getUser(), 2, $_POST["slot1"], $_POST["slot2"], $_POST["slot3"],
+        $_POST["slot4"], $_POST["slot5"], $_POST["slot6"], $_POST["slot7"], $_POST["slot8"], $_POST["crouch"],
+        $_POST["walk_sprint"], $_POST["jump"], $_POST["use_object"]);
+
+    $storage->update_createVideo(Auth::getUser(), 2, $_POST["resolution"],  $_POST["aspect_ratio"], $_POST["scalling_mode"],
+        $_POST["brightness"], $_POST["display_mode"], $_POST["global_shadow_qua"], $_POST["model_detail"],
+        $_POST["texture_streaming"], $_POST["effect_detail"], $_POST["shader_detail"], $_POST["boost_player_c"],
+        $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["v_sync"], $_POST["motion_blur"],
+        $_POST["triple_monitor"], $_POST["user_shaders"]);
+
+
+}
+
+if(isset($_POST["update_fortnite"])) {
+    $storage->update_createMouse(Auth::getUser(), 3, $_POST["DPI"],  $_POST["sensitivity"], $_POST["zoom_sens"],
+        $_POST["hz"], $_POST["windows_sens"], $_POST["raw_input"], $_POST["mouse_acc"]);
+
+    $storage->update_createkeyBinding(Auth::getUser(), 3, $_POST["slot1"], $_POST["slot2"], $_POST["slot3"],
+        $_POST["slot4"], $_POST["slot5"], $_POST["slot6"], $_POST["slot7"], $_POST["slot8"], $_POST["crouch"],
+        $_POST["walk_sprint"], $_POST["jump"], $_POST["use_object"]);
+
+    $storage->update_createVideo(Auth::getUser(), 3, $_POST["resolution"],  $_POST["aspect_ratio"], $_POST["scalling_mode"],
+        $_POST["brightness"], $_POST["display_mode"], $_POST["global_shadow_qua"], $_POST["model_detail"],
+        $_POST["texture_streaming"], $_POST["effect_detail"], $_POST["shader_detail"], $_POST["boost_player_c"],
+        $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["v_sync"], $_POST["motion_blur"],
+        $_POST["triple_monitor"]);
+
+
+}
+
+if(isset($_POST["delete_csgo"])) {
+    $storage->deleteConfig(Auth::getUser(), 1);
+}
+if(isset($_POST["delete_valorant"])) {
+    $storage->deleteConfig(Auth::getUser(), 2);
+}
+if(isset($_POST["delete_fortnite"])) {
+    $storage->deleteConfig(Auth::getUser(), 3);
+}
+
 if(isset($_GET['logout']) && $_GET['logout'] == '1') {
     Auth::logout();
 }
