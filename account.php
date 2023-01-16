@@ -41,10 +41,20 @@ if(isset($_POST["signup"])) {
     }
 }
 if(isset($_POST["update"])) {
-    $storage->updateUser(Auth::getUser(), $_POST["firstName"], $_POST["lastName"], $_POST["team"], $_POST["cpu"], $_POST["gpu"], $_POST["ram"], $_POST["monitor"], $_POST["mouse"], $_POST["keyboard"], $_POST["headset"], $_POST["mousepad"], $_POST["dpi"], $_POST["sensitivity"], $_POST["crosshair"], $_POST["viewmodel"]);
+    $storage->updateUser(Auth::getUser(), $_POST["name"], $_POST["surname"], $_POST["country"], $_POST["birthdate"]);
 }
 if(isset($_POST["delete"])) {
     $storage->deleteUser(Auth::getUser());
+}
+if(isset($_POST["update_csgo"])) {
+    $storage->update_createMouse(Auth::getUser(), 1, $_POST["DPI"],  $_POST["sensitivity"], $_POST["zoom_sens"],
+                                $_POST["hz"], $_POST["windows_sens"], $_POST["raw_input"], $_POST["mouse_acc"]);
+
+    $storage->update_createCrosshair(Auth::getUser(), 1, $_POST["drawoutline"],  $_POST["alpha"], $_POST["red"],
+                                $_POST["green"], $_POST["blue"], $_POST["dot"], $_POST["gap"], $_POST["size"],
+                                $_POST["style"], $_POST["thickness"], $_POST["sniper_width"]);
+
+
 }
 if(isset($_GET['logout']) && $_GET['logout'] == '1') {
     Auth::logout();
@@ -147,6 +157,15 @@ if(isset($_GET['logout']) && $_GET['logout'] == '1') {
                     </div>
                     <!--PLAYER END-->
                 </div>
+                    <div class="buttons row row-cols-2">
+                        <div class="col">
+                            <button class="w-100 btn btn-lg btn-primary sbutton" name="update" type="submit">Save user info</button>
+                        </div>
+                        <div class="col">
+                            <button class="w-100 btn btn-lg btn-primary red sbutton" name="delete" type="submit">Delete account</button>
+                        </div>
+                    </div>
+
 
                 <div class="row">
                     <form action="" method="post">
@@ -168,14 +187,7 @@ if(isset($_GET['logout']) && $_GET['logout'] == '1') {
                 </div>
 
                 </div>
-                <div class="buttons row row-cols-2">
-                    <div class="col">
-                        <button class="w-100 btn btn-lg btn-primary sbutton" name="update" type="submit">Save settings</button>
-                    </div>
-                    <div class="col">
-                     <button class="w-100 btn btn-lg btn-primary red sbutton" name="delete" type="submit">Delete account</button>
-                    </div>
-                </div>
+
 
             </form>
 <?php } ?>
