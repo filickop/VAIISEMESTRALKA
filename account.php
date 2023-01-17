@@ -41,13 +41,17 @@ if(isset($_POST["signup"])) {
     }
 }
 if(isset($_POST["update"])) {
-    $storage->updateUser(Auth::getUser(), $_POST["name"], $_POST["surname"], $_POST["country"], $_POST["birthdate"]);
+    $filename = $_FILES["profileImage"]["name"];
+    $tempname = $_FILES["profileImage"]["tmp_name"];
+    $folder = "./images/players/" . Auth::getUser().".jpg";
+    move_uploaded_file($tempname, $folder);
+    $storage->updateUser(Auth::getUser(), $_POST["name"], $_POST["surname"], $_POST["country"], $_POST["birthdate"], $folder);
 }
 if(isset($_POST["delete"])) {
     $storage->deleteUser(Auth::getUser());
 }
 if(isset($_POST["update_csgo"])) {
-    $storage->update_createMouse(Auth::getUser(), 1, $_POST["DPI"],  $_POST["sensitivity"], $_POST["zoom_sens"],
+    $storage->update_createMouse(Auth::getUser(), 1, $_POST["DPI"], $_POST["sensitivity"], $_POST["zoom_sens"],
                                 $_POST["hz"], $_POST["windows_sens"], $_POST["raw_input"], $_POST["mouse_acc"]);
 
     $storage->update_createCrosshair(Auth::getUser(), 1, $_POST["drawoutline"],  $_POST["alpha"], $_POST["red"],
@@ -57,11 +61,11 @@ if(isset($_POST["update_csgo"])) {
     $storage->update_createViewmodel(Auth::getUser(), 1, $_POST["fov"],  $_POST["offsetx"], $_POST["offsety"],
                                 $_POST["offsetz"], $_POST["righthand"], $_POST["recoil"]);
 
-    $storage->update_createVideo(Auth::getUser(), 1, $_POST["resolution"],  $_POST["aspect_ratio"], $_POST["scalling_mode"],
+    $storage->update_createVideo(Auth::getUser(), 1, $_POST["resolution"],  $_POST["aspect_ratio"], "",
                                 $_POST["brightness"], $_POST["display_mode"], $_POST["global_shadow_qua"], $_POST["model_detail"],
                                 $_POST["texture_streaming"], $_POST["effect_detail"], $_POST["shader_detail"], $_POST["boost_player_c"],
-                                $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["v_sync"], $_POST["motion_blur"],
-                                $_POST["triple_monitor"], $_POST["user_shaders"]);
+                                $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["texture_streaming"], $_POST["v_sync"],
+                                $_POST["motion_blur"], $_POST["triple_monitor"]);
 
 
 }
@@ -77,12 +81,11 @@ if(isset($_POST["update_valorant"])) {
         $_POST["slot4"], $_POST["slot5"], $_POST["slot6"], $_POST["slot7"], $_POST["slot8"], $_POST["crouch"],
         $_POST["walk_sprint"], $_POST["jump"], $_POST["use_object"]);
 
-    $storage->update_createVideo(Auth::getUser(), 2, $_POST["resolution"],  $_POST["aspect_ratio"], $_POST["scalling_mode"],
-        $_POST["brightness"], $_POST["display_mode"], $_POST["global_shadow_qua"], $_POST["model_detail"],
+    $storage->update_createVideo(Auth::getUser(), 2, $_POST["resolution"],  $_POST["aspect_ratio"], "",
+        "", $_POST["display_mode"], "", $_POST["model_detail"],
         $_POST["texture_streaming"], $_POST["effect_detail"], $_POST["shader_detail"], $_POST["boost_player_c"],
-        $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["v_sync"], $_POST["motion_blur"],
-        $_POST["triple_monitor"], $_POST["user_shaders"]);
-
+        $_POST["multicore_ren"], "", $_POST["fxaa"], $_POST["texture_streaming"], $_POST["v_sync"],
+        $_POST["motion_blur"], "");
 
 }
 
@@ -91,15 +94,14 @@ if(isset($_POST["update_fortnite"])) {
         $_POST["hz"], $_POST["windows_sens"], $_POST["raw_input"], $_POST["mouse_acc"]);
 
     $storage->update_createkeyBinding(Auth::getUser(), 3, $_POST["slot1"], $_POST["slot2"], $_POST["slot3"],
-        $_POST["slot4"], $_POST["slot5"], $_POST["slot6"], $_POST["slot7"], $_POST["slot8"], $_POST["crouch"],
+        $_POST["slot4"], $_POST["slot5"], $_POST["slot6"], "", "", $_POST["crouch"],
         $_POST["walk_sprint"], $_POST["jump"], $_POST["use_object"]);
 
-    $storage->update_createVideo(Auth::getUser(), 3, $_POST["resolution"],  $_POST["aspect_ratio"], $_POST["scalling_mode"],
-        $_POST["brightness"], $_POST["display_mode"], $_POST["global_shadow_qua"], $_POST["model_detail"],
-        $_POST["texture_streaming"], $_POST["effect_detail"], $_POST["shader_detail"], $_POST["boost_player_c"],
-        $_POST["multicore_ren"], $_POST["multisampling"], $_POST["fxaa"], $_POST["v_sync"], $_POST["motion_blur"],
-        $_POST["triple_monitor"]);
-
+    $storage->update_createVideo(Auth::getUser(), 3, $_POST["resolution"],  "", "",
+        $_POST["brightness"], $_POST["display_mode"], "", $_POST["model_detail"],
+        "", $_POST["effect_detail"], $_POST["shader_detail"], "",
+        "", "", $_POST["fxaa"], "", $_POST["v_sync"],
+        $_POST["motion_blur"], "");
 
 }
 
@@ -116,7 +118,6 @@ if(isset($_POST["delete_fortnite"])) {
 if(isset($_GET['logout']) && $_GET['logout'] == '1') {
     Auth::logout();
 }
-
 
 ?>
 
@@ -185,16 +186,25 @@ if(isset($_GET['logout']) && $_GET['logout'] == '1') {
     else if (Auth::isLogged()){
         $user = $storage->readPlayer(Auth::getUser())?>
 
-            <form class="form-profile" method="post" action="#">
-                <h1 class="h3 mb-3 fw-normal ">Edit profile</h1>
-                <div class="row configcard">
+            <form class="form-profile" method="post" enctype="multipart/form-data" action="#">
+                <h1 class="h3 mb-3 fw-normal">Edit profile</h1>
+                <div class="row configcard row-cols-sm-1 row-cols-md-2 row-cols-lg-2">
                     <!--PLAYER-->
                     <div class="col-4 playerData-image">
-                        <img class="playercard-background center" src="<?php echo $user["image"]?>">
+                        <img class="playercard-background center" src="
+                        <?php if($user["image"] != "") {
+                            echo $user["image"];
+                        } else {
+                            echo "images/blank_profile.webp" ;
+                        }
+                        ?>"">
+                        <div class="input-group mb-3">
+                            <input type="file" name="profileImage" class="form-control" id="image" accept="image/*">
+                        </div>
                     </div>
 
                     <div class="form-editdata col-8">
-                        <h3 class="h4 mb-3 fw-normal">Player</h3>
+                        <h3 class="h4 mb-3 fw-normal"><?php echo $user["login"]?></h3>
                         <div class="form-floating">
                             <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Name" value="<?php echo $user["name"]?>">
                             <label for="floatingInput">First name</label>
@@ -238,14 +248,10 @@ if(isset($_GET['logout']) && $_GET['logout'] == '1') {
 
                     </form>
                     <br>
-
                     <div class="row" id="setConfig">
                     </div>
                 </div>
-
                 </div>
-
-
             </form>
 <?php } ?>
 

@@ -64,7 +64,6 @@ if($video == null) {
     $video["v_sync"] = "Unknown";
     $video["motion_blur"] = "Unknown";
     $video["triple_monitor"] = "Unknown";
-    $video["user_shaders"] = "Unknown";
 
 }
 
@@ -287,12 +286,6 @@ echo "  <div class=\"container row\">
                     <th class=\"configTable-th\">Triple-Monitor Mode</th>
                     <td class=\"configTable-td\">". $video["triple_monitor"] ."</td>
                 </tr>
-                <tr>
-                    <th class=\"configTable-th\">Use Uber Shaders</th>
-                    <td class=\"configTable-td\">". $video["user_shaders"] ."</td>
-                </tr>
-
-
                 </tbody>
             </table>
         </div>

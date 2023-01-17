@@ -66,7 +66,6 @@ if($video == null) {
     $video["v_sync"] = "";
     $video["motion_blur"] = "";
     $video["triple_monitor"] = "";
-    $video["user_shaders"] = "";
 }
 
 
@@ -185,79 +184,164 @@ echo "
             
             <div class=\"form-editdata configcard col\">
                 <h3 class=\"h4 mb-3 fw-normal\">Video Settings</h3>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"resolution\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Resolution\" value=". $video["resolution"] .">
-                    <label for=\"floatingInput\">Resolution</label>
+                
+                
+                <label for=\"resolution\">Resolution</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"resolution\" name=\"resolution\" class=\"form-select\">
+                    <option value=". $video["resolution"]." >". $video["resolution"]."</option>
+                    <option value=\"1176x664\">1176x664</option>
+                    <option value=\"1280x720\">1280x720</option>
+                    <option value=\"1366x768\">1366x768</option>
+                    <option value=\"1600x900\">1600x900</option>
+                    <option value=\"1920x1080\">1920x1080</option>
+                    <option value=\"3840x2160\">3840x2160</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"aspect_ratio\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Aspect Ratio\" value=". $video["aspect_ratio"] .">
-                    <label for=\"floatingInput\">Aspect Ratio</label>
+
+                <label for=\"aspect_ratio\">Aspect Ratio</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"aspect_ratio\" name=\"aspect_ratio\" class=\"form-select\">
+                    <option value=". $video["aspect_ratio"]." >". $video["aspect_ratio"]."</option>
+                    <option value=\"16:10\">16:10</option>
+                    <option value=\"16:9\">16:9</option>
+                    <option value=\"4:3\">4:3</option>
+                    </select>
                 </div>
+                
+                <label for=\"floatingInput\">Brightness</label>
                 <div class=\"form-floating\">
-                    <input type=\"text\" name=\"scalling_mode\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Scaling Mode\" value=". $video["scalling_mode"] .">
-                    <label for=\"floatingInput\">Scaling Mode</label>
+                    <input type=\"number\" min=\"0\" max=\"130\" step=\"1\" name=\"brightness\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Brightness\" value=". $video["brightness"] .">
+                    
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"brightness\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Brightness\" value=". $video["brightness"] .">
-                    <label for=\"floatingInput\">Brightness</label>
+                
+                <label for=\"display_mode\">Display Mode</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"display_mode\" name=\"display_mode\" class=\"form-select\">
+                    <option value=". $video["display_mode"].">". $video["display_mode"]."</option>
+                    <option value=\"Fullscreen\">Fullscreen</option>
+                    <option value=\"Windowed\">Windowed</option>
+                    <option value=\"Fullscreen Windowed\">Fullscreen Windowed</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"display_mode\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Display Mode\" value=". $video["display_mode"] .">
-                    <label for=\"floatingInput\">Display Mode</label>
+                
+                <label for=\"global_shadow_qua\">Global Shadow Quality</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"global_shadow_qua\" name=\"global_shadow_qua\" class=\"form-select\">
+                    <option value=". $video["global_shadow_qua"]." >". $video["global_shadow_qua"]."</option>
+                    <option value=\"High\">High</option>
+                    <option value=\"Medium\">Medium</option>
+                    <option value=\"Low\">Low</option>
+                    <option value=\"Very Low\">Very Low</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"global_shadow_qua\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Global Shadow Quality\" value=". $video["global_shadow_qua"] .">
-                    <label for=\"floatingInput\">Global Shadow Quality</label>
+         
+                <label for=\"model_detail\">Model / Texture Detail</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"model_detail\" name=\"model_detail\" class=\"form-select\">
+                    <option value=". $video["model_detail"]." >". $video["model_detail"]."</option>
+                    <option value=\"High\">High</option>
+                    <option value=\"Medium\">Medium</option>
+                    <option value=\"Low\">Low</option>
+                    <option value=\"Very Low\">Very Low</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"model_detail\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Model / Texture Detail\" value=". $video["model_detail"] .">
-                    <label for=\"floatingInput\">Model / Texture Detail</label>
+                
+                <label for=\"texture_streaming\">Texture Streaming</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"texture_streaming\" name=\"texture_streaming\" class=\"form-select\">
+                    <option value=". $video["texture_streaming"]." >". $video["texture_streaming"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"texture_streaming\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Texture Streaming\" value=". $video["texture_streaming"] .">
-                    <label for=\"floatingInput\">Texture Streaming</label>
+                
+                <label for=\"effect_detail\">Effect Detail</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"effect_detail\" name=\"effect_detail\" class=\"form-select\">
+                    <option value=". $video["effect_detail"].">". $video["effect_detail"]."</option>
+                    <option value=\"High\">High</option>
+                    <option value=\"Medium\">Medium</option>
+                    <option value=\"Low\">Low</option>
+                    <option value=\"Very Low\">Very Low</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"effect_detail\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Effect Detail\" value=". $video["effect_detail"] .">
-                    <label for=\"floatingInput\">Effect Detail</label>
+ 
+                <label for=\"shader_detail\">Shader Detail</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"shader_detail\" name=\"shader_detail\" class=\"form-select\">
+                    <option value=". $video["shader_detail"]." >". $video["shader_detail"]."</option>
+                    <option value=\"High\">High</option>
+                    <option value=\"Medium\">Medium</option>
+                    <option value=\"Low\">Low</option>
+                    <option value=\"Very Low\">Very Low</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"shader_detail\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Shader Detail\" value=". $video["shader_detail"] .">
-                    <label for=\"floatingInput\">Shader Detail</label>
+                
+                <label for=\"boost_player_c\">Boost Player Contrast</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"boost_player_c\" name=\"boost_player_c\" class=\"form-select\">
+                    <option value=". $video["boost_player_c"]." >". $video["boost_player_c"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"boost_player_c\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Boost Player Contrast\" value=". $video["boost_player_c"] .">
-                    <label for=\"floatingInput\">Boost Player Contrast</label>
+                
+                <label for=\"multicore_ren\">Multicore Rendering</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"multicore_ren\" name=\"multicore_ren\" class=\"form-select\">
+                    <option value=". $video["multicore_ren"]." >". $video["multicore_ren"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"multicore_ren\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Multicore Rendering\" value=". $video["multicore_ren"] .">
-                    <label for=\"floatingInput\">Multicore Rendering</label>
+                
+                <label for=\"multisampling\">Multisampling</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"multisampling\" name=\"multisampling\" class=\"form-select\">
+                    <option value=". $video["multisampling"]." >". $video["multisampling"]."</option>
+                    <option value=\"None\">None</option>
+                    <option value=\"2x MSAA\">2x MSAA</option>
+                    <option value=\"4x MSAA\">4x MSAA</option>
+                    <option value=\"8x MSAA\">8x MSAA</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"multisampling\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Multisampling\" value=". $video["multisampling"] .">
-                    <label for=\"floatingInput\">Multisampling</label>
+                  
+                <label for=\"fxaa\">FXAA Anti-Aliasing</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"fxaa\" name=\"fxaa\" class=\"form-select\">
+                    <option value=". $video["fxaa"].">". $video["fxaa"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"fxaa\" class=\"form-control\" id=\"floatingInput\" placeholder=\"FXAA Anti-Aliasing\" value=". $video["fxaa"] .">
-                    <label for=\"floatingInput\">FXAA Anti-Aliasing</label>
+                
+                <label for=\"v_sync\">V-Sync</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"v_sync\" name=\"v_sync\" class=\"form-select\">
+                    <option value=". $video["v_sync"].">". $video["v_sync"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"v_sync\" class=\"form-control\" id=\"floatingInput\" placeholder=\"V-Sync\" value=". $video["v_sync"] .">
-                    <label for=\"floatingInput\">V-Sync</label>
+                
+                <label for=\"motion_blur\">Motion Blur</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"motion_blur\" name=\"motion_blur\" class=\"form-select\">
+                    <option value=". $video["motion_blur"].">". $video["motion_blur"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"motion_blur\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Motion Blur\" value=". $video["motion_blur"] .">
-                    <label for=\"floatingInput\">Motion Blur</label>
+             
+            <label for=\"triple_monitor\">Triple-Monitor Mode</label>
+                <div class=\"input-group mb-3\">
+                    <select id=\"triple_monitor\" name=\"triple_monitor\" class=\"form-select\">
+                    <option value=". $video["triple_monitor"].">". $video["triple_monitor"]."</option>
+                    <option value=\"Enabled\">Enabled</option>
+                    <option value=\"Disabled\">Disabled</option>
+                    </select>
                 </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"triple_monitor\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Triple-Monitor Mode\" value=". $video["triple_monitor"] .">
-                    <label for=\"floatingInput\">Triple-Monitor Mode</label>
-                </div>
-                <div class=\"form-floating\">
-                    <input type=\"text\" name=\"user_shaders\" class=\"form-control\" id=\"floatingInput\" placeholder=\"Use Uber Shaders\" value=". $video["user_shaders"] .">
-                    <label for=\"floatingInput\">Use Uber Shaders</label>
-                </div>
-            </div>
     </div>
     <div class=\"buttons row row-cols-2\">
                         <div class=\"col\">

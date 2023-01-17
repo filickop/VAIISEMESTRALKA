@@ -11,6 +11,13 @@ $storage = new DBStorage();
 //echo $_SESSION["game"];
 $game = $storage->readGame($_SESSION["game"]);
 
+if(isset($_GET["player"])) {
+
+    $_SESSION["player"] = $_GET["player"];
+    header("Location: /playerPage.php");
+    exit();
+}
+
 ?>
 
 <!doctype html>
@@ -26,6 +33,7 @@ $game = $storage->readGame($_SESSION["game"]);
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body class="p-3 m-0 border-0">
 
@@ -47,14 +55,33 @@ $game = $storage->readGame($_SESSION["game"]);
 
         </div>
 
-        <div class="row">
-            <?php
-                include 'players.php';
-            ?>
+        <div class="row" id="playersList">
+
         </div>
 
+<!--        <div class="row">-->
+<!--            --><?php
+//                include 'players.php';
+//            ?>
+<!--        </div>-->
+        <div class="row">
+            <ul class="pagination pagination-center">
+                <?php
+                    $count = intval($storage->getPlayerCount($_SESSION["game"])["c"]);
+                    $pages = 0;
+
+                    while ($pages < $count) {
+                        $pages = $pages + 10;
+                        $page = $pages / 10;
+                        ?>
+                <li name="page" value="<?php echo $page?>" onclick="players(<?php echo $_SESSION["game"]?>, this.value)" class="page-item"><a class="page-link" href="#"><?php echo $page?></a></li>
+                <?php
+                    }
+                            ?>
+            </ul>
+        </div>
+
+        <script>players(<?php echo $_SESSION["game"] ?>, 1)</script>
     </div>
-
-
 </body>
 </html>

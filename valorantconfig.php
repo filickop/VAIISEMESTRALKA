@@ -69,7 +69,6 @@ if($video == null) {
     $video["v_sync"] = "Unknown";
     $video["motion_blur"] = "Unknown";
     $video["triple_monitor"] = "Unknown";
-    $video["user_shaders"] = "Unknown";
 
 }
 

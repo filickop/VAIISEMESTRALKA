@@ -36,7 +36,13 @@ $player = $storage->readPlayer($_SESSION["player"]);
 
             <div class="row">
                 <div class="col-4 playerData-image">
-                    <img class="gamecard-background" src="<?php echo $player["image"]?>" >
+                    <img class="gamecard-background" src="
+                    <?php if($player["image"] != "") {
+                        echo $player["image"];
+                    } else {
+                        echo "images/blank_profile.webp" ;
+                    }
+                    ?>"" >
                 </div>
                 <div class="col-8 playerData">
                     <div class="row">

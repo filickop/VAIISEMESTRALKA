@@ -50,6 +50,24 @@ function setConfig(str) {
     xhttp.send();
 }
 
+function players(game, page) {
+    var xhttp;
+    if (page == "") {
+        page = 1;
+    }
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("playersList").innerHTML = this.responseText;
+        }
+    };
+
+        xhttp.open("GET", "players.php?game="+game+"&page="+page, true);
+
+
+    xhttp.send();
+}
+
 //PASSWORD CHECKER
 
 $(document).ready(function () {

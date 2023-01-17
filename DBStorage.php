@@ -23,24 +23,38 @@ class DBStorage
         $res->bindParam(1, $login);
         $res->execute();
         $acc = $res->fetch();
-            if($acc != null && $acc["password"] == $password) {
+            if($acc != null && $this->hashPassword($password, $acc["salt"] == $acc["password"])) {
                 return true;
             }
         return false;
     }
+
+    /**
+     * @throws Exception
+     */
     public function createUser($login, $name, $surname, $password)
     {
+        try {
+            $salt = bin2hex(random_bytes(15));
+        } catch (Exception $e) {
+        }
+
+        $hash = $this->hashPassword($password,$salt);
         if ($this->findUser($login)["login"] == $login) {
             return false;
         } else {
-            $res = $this->conn->prepare("INSERT INTO user (login, name, surname, password) VALUES(?,?,?,?)");
+            $res = $this->conn->prepare("INSERT INTO user (login, name, surname, password, salt) VALUES(?,?,?,?,?)");
             $res->bindParam(1, $login);
             $res->bindParam(2, $name);
             $res->bindParam(3, $surname);
-            $res->bindParam(4, $password);
+            $res->bindParam(4, $hash);
+            $res->bindParam(5, $salt);
             $res->execute();
             return true;
         }
+    }
+    public function hashPassword($password, $salt): string {
+        return md5($password.$salt);
     }
 
     public function findUser($login) {
@@ -55,17 +69,19 @@ class DBStorage
     }
 
 
-    public function updateUser($login, $name,  $surname, $country, $birthdate) {
+    public function updateUser($login, $name,  $surname, $country, $birthdate, $filepath) {
 
-            $res = $this->conn->prepare("UPDATE user SET name=?, surname=?, country=?, birthdate=? where login=?");
+            $res = $this->conn->prepare("UPDATE user SET name=?, surname=?, country=?, birthdate=?, image=? where login=?");
             $res->bindParam(1, $name);
             $res->bindParam(2, $surname);
             $res->bindParam(3, $country);
             $res->bindParam(4, $birthdate);
-            $res->bindParam(5, $login);
+            $res->bindParam(5, $filepath);
+            $res->bindParam(6, $login);
             $res->execute();
     }
     public function deleteUser($login) {
+        unlink($this->readPlayer($login)["image"]);
         $res = $this->conn->prepare("DELETE FROM mouse WHERE ID_user=?");
         $res->bindParam(1, $login);
         $res->execute();
@@ -133,12 +149,20 @@ class DBStorage
         return $res->fetch();
     }
 
-    public function readPlayers($ID_game) {
-        $res = $this->conn->prepare("SELECT * FROM user join mouse on(user.login = mouse.id_user) where mouse.ID_game=?");
+    public function readPlayers($ID_game, $page) {
+        $page = intval($page);
+        $page = ($page - 1) * 10;
+        $res = $this->conn->prepare("SELECT * FROM user join mouse on(user.login = mouse.id_user) where mouse.ID_game=?
+                                        limit 10 offset $page");
         $res->bindParam(1, $ID_game);
         $res->execute();
-
         return $res;
+    }
+    public function getPlayerCount($ID_game) {
+        $res = $this->conn->prepare("SELECT count(*) as c FROM user join mouse on(user.login = mouse.id_user) where mouse.ID_game=?");
+        $res->bindParam(1, $ID_game);
+        $res->execute();
+        return $res->fetch();
     }
 
     public function readPlayer($login) {
