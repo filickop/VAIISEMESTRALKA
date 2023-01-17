@@ -18,5 +18,5 @@
     <div class="row" id="config">
     </div>
 </div>
-    <script>showConfig(<?php echo $_SESSION["game"]  ?>);</script>
+    <script>showConfig(<?php echo $_SESSION["game"]  ?>)</script>
 
